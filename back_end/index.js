@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
     res.render('pages/login');
 }) 
 
+
 const uri = 'mongodb://localhost/CaffeDB';
 const PORT = process.env.PORT || 5000;
 
