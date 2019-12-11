@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "name": "V",
+      "old": "12",
+      "id": 2
+    },
+    {
+      "name": "V",
+      "old": "12",
+      "id": 3
+    },
+    {
+      "name": "V",
+      "old": "12",
+      "id": 4
+    },
+    {
+      "name": "a",
+      "old": "",
+      "id": 5
+    },
+    {
+      "name": "asdas",
+      "old": "3",
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
