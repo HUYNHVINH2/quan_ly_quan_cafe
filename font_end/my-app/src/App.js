@@ -7,15 +7,12 @@ import {
 } from "react-router-dom";
 
 
-import Product from './Product';
-import Student from './student';
 import Login from './login';
-import AddCategory from './AddCategory';
-import ProductForm from './ProductForm';
+
+
 import Axios from 'axios';
 import Slidebar from './component/sildebar';
-import ButtonTodos from './button';
-import Table from './component/Table';
+
 export default class App extends Component {
 
   state = {
@@ -40,16 +37,15 @@ export default class App extends Component {
       <div className="App">
    
 
-      <Switch>
-          <Route  path="/dashboad">
-            <Slidebar/>
-          </Route>
-         
-          <Route  path="/login">
-            <Login />
-          </Route>
-      </Switch>
-      </div>
+        <Switch>
+            <Route  path="/dashboad">
+              <Slidebar/>
+            </Route>
+            <Route  path="/login">
+              <Login />
+            </Route>
+        </Switch>
+        </div>
       </Router>
     )
   }

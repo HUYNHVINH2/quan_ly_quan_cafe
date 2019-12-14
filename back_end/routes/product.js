@@ -15,15 +15,16 @@ route.get('/them', ROLE_ADMIN, async (req, res) => {
     let listCategory = await CATEGORY_MODEL.getList();
     res.render('pages/add-product', { listCategory: listCategory.data, alertInsertProductError: false });
 });
-route.post('/add', ROLE_ADMIN, uploadMulter.single('avatar'), async (req, res) => {
+route.post('/add', uploadMulter.single('avatar'), async (req, res) => {
     try {
         let { nameProduct, idProduct, idCategory, price } = req.body;
+        console.log( { nameProduct, idProduct, idCategory, price } )
         let infoFile = req.file;
         let listCategory = await CATEGORY_MODEL.getList();
         let infoProduct = await PRODUCT_MODEL.insert({ nameProduct, idProduct, idCategory, price, avatar: infoFile.originalname });
         console.log({ infoProduct });
-        if (infoProduct.error && infoProduct.message == 'product_existed') return res.render('pages/add-product', { listCategory: listCategory.data, alertInsertProductError: true });
-        res.redirect('/san-pham/danh-sach');
+        if (infoProduct.error && infoProduct.message == 'product_existed') return res.json({ error : true, message :'add fail'})
+        res.json({ error : false, message :'add_success' })
     } catch (error) {
         res.json(error.message);
     }
@@ -53,13 +54,13 @@ route.get('/tim-kiem', async (req, res) => {
     }
 });
 
-route.get('/cap-nhat/:id', ROLE_ADMIN, async (req, res) => {
+route.get('/cap-nhat/:id', async (req, res) => {
     let { id } = req.params;
     let result = await PRODUCT_MODEL.getID(id);
     let listCategory = await CATEGORY_MODEL.getList();
     res.render('pages/edit-product', { infoProduct: result.data, listCategory: listCategory.data });
 });
-route.post('/update/:id', ROLE_ADMIN, uploadMulter.single('avatar'), async (req, res) => {
+route.post('/update/:id', uploadMulter.single('avatar'), async (req, res) => {
     try {
         let { id } = req.params;
         //let infoFile = req.file
@@ -78,7 +79,7 @@ route.post('/update/:id', ROLE_ADMIN, uploadMulter.single('avatar'), async (req,
         res.redirect('/san-pham/loi-cap-nhat-san-pham');
     }
 });
-route.get('/xoa/:id', ROLE_ADMIN, async (req, res) => {
+route.get('/xoa/:id', async (req, res) => {
     try {
         let { id } = req.params;
         let result = await PRODUCT_MODEL.deleteProduct(id);
@@ -87,9 +88,9 @@ route.get('/xoa/:id', ROLE_ADMIN, async (req, res) => {
             if (err) return console.log(err);
             console.log('file deleted successfully');
         });
-        res.redirect('/san-pham/danh-sach');
+        return res.json(result)
     } catch (error) {
-        res.redirect('/san-pham/loi-xoa-san-pham');
+        return res.json(error.message);
     }
 });
 route.get('/:id?', ROLE_ADMIN, async (req, res) => {

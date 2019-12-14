@@ -1,5 +1,7 @@
-const express = require('express');
+//thuw vien cung phuong thuc viet web
+const express = require('express');//get post put req , res
 const app = express();
+// 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -22,7 +24,8 @@ app.use('/danh-muc', CATEGORY_ROUTER);
 
 app.get('/', (req, res) => {
     res.render('pages/login');
-}) ;
+});
+
 
 
 const uri = 'mongodb://localhost/CaffeDB';

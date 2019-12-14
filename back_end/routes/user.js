@@ -32,10 +32,11 @@ route.get('/dang-nhap', async (req, res) => {
 route.post('/login', async (req, res) => {
     let { username, password } = req.body;
     let infoUser = await USER_MODEL.signIn(username, password);
-    let result = await PRODUCT_MODEL.getList();
+    let result = await PRODUCT_MODEL.getList(); 
     if (infoUser.error && infoUser.message == 'username_not_exist')
-        return res.json({message :'login fail'})
-    res.cookie('token', infoUser.data.token, { maxAge: 900000 });
+        return res.json({message:'login_fail'})
+    // res.cookie('token', infoUser.data.token, { maxAge: 900000 });
+    //req.session.token = await infoUser.data.token; //gán token đã tạo cho session
     //return res.redirect('/san-pham/danh-sach');
     return res.json({message:'login_success'})
 })
